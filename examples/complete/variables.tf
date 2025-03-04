@@ -86,7 +86,7 @@ variable "logical_product_service" {
   type        = string
   description = "Name of the product service for which the resource is created."
 
-  default = "dps"
+  default = "iothub"
 }
 
 variable "class_env" {

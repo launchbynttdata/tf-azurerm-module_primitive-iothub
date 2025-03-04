@@ -40,7 +40,7 @@ func TestIothub(t *testing.T, ctx types.TestContext) {
 		t.Fatalf("Error creating device provisioning services client: %v", err)
 	}
 
-	t.Run("GetDeviceProvisioningServiceName", func(t *testing.T) {
+	t.Run("CheckIothubId", func(t *testing.T) {
 		resourceGroupName := terraform.Output(t, ctx.TerratestTerraformOptions(), "resource_group_name")
 		iothubName := terraform.Output(t, ctx.TerratestTerraformOptions(), "name")
 		iothubId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
