@@ -45,10 +45,10 @@ variable "local_authentication_enabled" {
 
 variable "identity_type" {
   type        = string
-  description = <<EOT
+  description = <<EOF
   (Optional) Specifies the type of Managed Service Identity configured on this IoT Hub.
   Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both). Defaults to `SystemAssigned`."
-  EOT
+  EOF
   default     = "SystemAssigned"
 }
 

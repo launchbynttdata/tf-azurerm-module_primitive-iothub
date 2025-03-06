@@ -3,6 +3,7 @@ package common
 import (
 	"context"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
@@ -50,6 +51,6 @@ func TestIothub(t *testing.T, ctx types.TestContext) {
 			t.Fatalf("Error getting iothub object: %v", err)
 		}
 
-		assert.Equal(t, iothubId, *res.ID, "IoT Hub Id's do not match.")
+		assert.Equal(t, strings.ToLower(iothubId), strings.ToLower(*res.ID), "IoT Hub Id's do not match.")
 	})
 }
