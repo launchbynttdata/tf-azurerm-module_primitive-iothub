@@ -52,6 +52,39 @@ variable "identity_type" {
   default     = "SystemAssigned"
 }
 
+variable "eventhub_endpoints" {
+  type = map(object({
+    connection_string = optional(string)
+    consumer_group    = optional(string)
+  }))
+  description = "(Optional) A mapping of eventhub instance names."
+  default     = {}
+}
+
+variable "eventhub_authorization_rules" {
+  type = map(object({
+    namespace_name      = string
+    resource_group_name = string
+    listen              = optional(bool, false)
+    send                = optional(bool, false)
+    manage              = optional(bool, false)
+  }))
+  description = "(Optional) A mapping of eventhub authorization rule names and their respective properties."
+  default     = {}
+}
+
+# route-to-endpoint can be many-to-one
+variable "routes" {
+  type = map(object({
+    custom_endpoint = optional(string)
+    condition       = optional(string)
+    source          = optional(string)
+    enabled         = optional(bool)
+  }))
+  description = "(Optional) A map of custom endpoint names and their respective conditions and sources"
+  default     = {}
+}
+
 variable "tags" {
   type        = map(string)
   description = "(Optional) A mapping of tags to assign to the resource."

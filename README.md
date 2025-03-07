@@ -125,7 +125,10 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurerm_eventhub_authorization_rule.rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) | resource |
 | [azurerm_iothub.instance](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/iothub) | resource |
+| [azurerm_iothub_endpoint_eventhub.endpoints](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/iothub_endpoint_eventhub) | resource |
+| [azurerm_iothub_route.routes](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/iothub_route) | resource |
 
 ## Inputs
 
@@ -138,6 +141,9 @@ No modules.
 | <a name="input_capacity"></a> [capacity](#input\_capacity) | (Optional) Specifies the number of units in the specified SKU. Defaults to 1. | `number` | `1` | no |
 | <a name="input_local_authentication_enabled"></a> [local\_authentication\_enabled](#input\_local\_authentication\_enabled) | (Optional) Boolean flag to specify whether or not local authentication is enabled or not. Defaults to true. | `bool` | `true` | no |
 | <a name="input_identity_type"></a> [identity\_type](#input\_identity\_type) | (Optional) Specifies the type of Managed Service Identity configured on this IoT Hub.<br/>  Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both). Defaults to `SystemAssigned`." | `string` | `"SystemAssigned"` | no |
+| <a name="input_eventhub_endpoints"></a> [eventhub\_endpoints](#input\_eventhub\_endpoints) | (Optional) A mapping of eventhub instance names. | <pre>map(object({<br/>    connection_string = optional(string)<br/>    consumer_group    = optional(string)<br/>  }))</pre> | `{}` | no |
+| <a name="input_eventhub_authorization_rules"></a> [eventhub\_authorization\_rules](#input\_eventhub\_authorization\_rules) | (Optional) A mapping of eventhub authorization rule names and their respective properties. | <pre>map(object({<br/>    namespace_name      = string<br/>    resource_group_name = string<br/>    listen              = optional(bool, false)<br/>    send                = optional(bool, false)<br/>    manage              = optional(bool, false)<br/>  }))</pre> | `{}` | no |
+| <a name="input_routes"></a> [routes](#input\_routes) | (Optional) A map of custom endpoint names and their respective conditions and sources | <pre>map(object({<br/>    custom_endpoint = optional(string)<br/>    condition       = optional(string)<br/>    source          = optional(string)<br/>    enabled         = optional(bool)<br/>  }))</pre> | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `{}` | no |
 
 ## Outputs

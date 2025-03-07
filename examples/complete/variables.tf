@@ -43,6 +43,39 @@ variable "identity_type" {
   default     = "SystemAssigned"
 }
 
+variable "eventhub_endpoints" {
+  type = map(object({
+    connection_string = string
+    consumer_group    = optional(string)
+  }))
+  description = "A mapping of eventhub instance names."
+  default     = {}
+}
+
+variable "eventhub_authorization_rules" {
+  type = map(object({
+    namespace_name      = string
+    resource_group_name = string
+    listen              = bool
+    send                = bool
+    manage              = bool
+  }))
+  description = "A mapping of eventhub authorization rule names and their respective properties."
+  default     = {}
+}
+
+# route-to-endpoint can be many-to-one
+variable "routes" {
+  type = map(object({
+    custom_endpoint = optional(string)
+    condition       = optional(string)
+    source          = optional(string)
+    enabled         = optional(bool)
+  }))
+  description = "A map of custom endpoint names and their respective conditions and sources"
+  default     = {}
+}
+
 //variables required by resource names module
 variable "resource_names_map" {
   description = "A map of key to resource_name that will be used by tf-launch-module_library-resource_name to generate resource names"
@@ -59,6 +92,10 @@ variable "resource_names_map" {
     }
     iothub = {
       name       = "iothub"
+      max_length = 80
+    }
+    eventhub_namespace = {
+      name       = "evthubns"
       max_length = 80
     }
   }

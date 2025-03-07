@@ -37,8 +37,19 @@ module "resource_names" {
   logical_product_service = var.logical_product_service
 }
 
-module "iothub" {
+module "eventhub_namespace" {
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/eventhub_namespace/azurerm"
+  version = "~> 1.0"
 
+  resource_group_name = module.resource_group.name
+  location            = var.location
+  namespace_name      = module.resource_names["eventhub_namespace"].minimal_random_suffix
+  tags = {
+    resource_name = local.resource_group
+  }
+}
+
+module "iothub" {
   source = "../.."
 
   name                         = local.iothub_name
@@ -48,6 +59,42 @@ module "iothub" {
   capacity                     = var.capacity
   local_authentication_enabled = var.local_authentication_enabled
   identity_type                = var.identity_type
+
+  eventhub_endpoints           = var.eventhub_endpoints
+  eventhub_authorization_rules = var.eventhub_authorization_rules
+  routes                       = var.routes
+
+  # eventhub_endpoints = {
+  #   "eventhub1" = {
+  #     connection_string = "Endpoint=sb://eventhub1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;Shared=TODO"
+  #   }
+  # }
+
+  # eventhub_authorization_rules = {
+  #   "eventhub1" = {
+  #     namespace_name      = module.eventhub_namespace.namespace_name
+  #     resource_group_name = module.resource_group.name
+  #     listen              = true
+  #     send                = true
+  #     manage              = true
+  #   }
+  #   "eventhub2" = {
+  #     namespace_name      = module.eventhub_namespace.namespace_name
+  #     resource_group_name = module.resource_group.name
+  #     listen              = true
+  #     send                = true
+  #     manage              = true
+  #   }
+  # }
+
+  # routes = {
+  #   "route1" = {
+  #     custom_endpoint = "custom-endpoint1"
+  #     condition       = "true"
+  #     source          = "DeviceMessages"
+  #     enabled         = true
+  #   }
+  # }
 
   depends_on = [module.resource_group]
 }
