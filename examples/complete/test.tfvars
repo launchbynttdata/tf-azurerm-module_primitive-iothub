@@ -26,7 +26,7 @@ sku = {
 #   route1 = {
 #     source         = "DeviceMessages"
 #     condition      = "true"
-#     endpoint_names = ["route"]
+#     endpoint_names = ["route1"]
 #     enabled        = true
 #   }
 
@@ -37,3 +37,36 @@ sku = {
 #     enabled        = true
 #   }
 # }
+
+# enrichments = {
+#   "eventName1" = {
+#     value          = "device_connection"
+#     endpoint_names = ["eventhub1-endpt"]
+#   }
+#   "eventName2" = {
+#     value          = "device_connection"
+#     endpoint_names = ["eventhub2-endpt"]
+#   }
+# }
+
+# enrichments = {
+#   key            = "tenant"
+#   value          = "$twin.tags.Tenant"
+#   endpoint_names = ["export", "export2"]
+# }
+
+cloud_to_device = {
+  max_delivery_count = 30
+  default_ttl        = "PT1H"
+  feedback = {
+    time_to_live       = "PT1H10M"
+    max_delivery_count = 15
+    lock_duration      = "PT30S"
+  }
+}
+
+fallback_route = {
+  enabled = false
+}
+
+consumer_groups = []

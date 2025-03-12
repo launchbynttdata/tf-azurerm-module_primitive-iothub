@@ -133,10 +133,10 @@ variable "fallback_route" {
     })
   EOF
   type = object({
-    source         = string
-    condition      = string
-    endpoint_names = list(string)
-    enabled        = bool
+    source         = optional(string)
+    condition      = optional(string)
+    endpoint_names = optional(list(string))
+    enabled        = optional(bool)
   })
   default = null
 }

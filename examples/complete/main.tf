@@ -37,17 +37,17 @@ module "resource_names" {
   logical_product_service = var.logical_product_service
 }
 
-module "eventhub_namespace" {
-  source  = "terraform.registry.launch.nttdata.com/module_primitive/eventhub_namespace/azurerm"
-  version = "~> 1.0"
+# module "eventhub_namespace" {
+#   source  = "terraform.registry.launch.nttdata.com/module_primitive/eventhub_namespace/azurerm"
+#   version = "~> 1.0"
 
-  resource_group_name = module.resource_group.name
-  location            = var.location
-  namespace_name      = module.resource_names["eventhub_namespace"].minimal_random_suffix
-  tags = {
-    resource_name = local.resource_group
-  }
-}
+#   resource_group_name = module.resource_group.name
+#   location            = var.location
+#   namespace_name      = module.resource_names["eventhub_namespace"].minimal_random_suffix
+#   tags = {
+#     resource_name = local.resource_group
+#   }
+# }
 
 module "iothub" {
   source = "../.."
@@ -56,5 +56,13 @@ module "iothub" {
   location            = var.location
   resource_group_name = module.resource_group.name
   sku                 = var.sku
-
+  # endpoints           = var.endpoints
+  fallback_route = var.fallback_route
+  # file_uploads        = var.file_uploads
+  # identity            = var.identity
+  # network_rule_set    = var.network_rule_set
+  routes          = var.routes
+  enrichments     = var.enrichments
+  cloud_to_device = var.cloud_to_device
+  consumer_groups = var.consumer_groups
 }
