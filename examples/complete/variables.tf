@@ -12,68 +12,30 @@
 
 variable "location" {
   type        = string
-  description = "Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created."
+  description = "(Optional) Specifies the supported Azure location where the resource exists."
   default     = "eastus"
 }
 
 variable "sku" {
-  type        = string
-  description = "Specifies the SKU of the IoT Hub. Possible values are S1, S2, and S3. Defaults to S1."
-  default     = "S1"
-}
-
-variable "capacity" {
-  type        = number
-  description = "Specifies the number of units in the specified SKU. Defaults to 1."
-  default     = 1
-}
-
-variable "local_authentication_enabled" {
-  type        = bool
-  description = "Boolean flag to specify whether or not local authentication is enabled or not. Defaults to true."
-  default     = true
-}
-
-variable "identity_type" {
-  type        = string
   description = <<EOF
-  Specifies the type of Managed Service Identity configured on this IoT Hub.
-  Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both). Defaults to `SystemAssigned`."
+  (Required) The sku specified for the IoT Hub.
+  object({
+    name = (Required) The name of the sku. Possible values are B1, B2, B3, F1, S1, S2, and S3. Defaults to S1.
+    capacity = (Required) The number of provisioned IoT Hub units. Defaults to 1.
+  })
   EOF
-  default     = "SystemAssigned"
-}
-
-variable "eventhub_endpoints" {
-  type = map(object({
-    connection_string = string
-    consumer_group    = optional(string)
-  }))
-  description = "A mapping of eventhub instance names."
-  default     = {}
-}
-
-variable "eventhub_authorization_rules" {
-  type = map(object({
-    namespace_name      = string
-    resource_group_name = string
-    listen              = bool
-    send                = bool
-    manage              = bool
-  }))
-  description = "A mapping of eventhub authorization rule names and their respective properties."
-  default     = {}
-}
-
-# route-to-endpoint can be many-to-one
-variable "routes" {
-  type = map(object({
-    custom_endpoint = optional(string)
-    condition       = optional(string)
-    source          = optional(string)
-    enabled         = optional(bool)
-  }))
-  description = "A map of custom endpoint names and their respective conditions and sources"
-  default     = {}
+  type = object({
+    name     = string
+    capacity = number
+  })
+  validation {
+    condition     = contains(["B1", "B2", "B3", "F1", "S1", "S2", "S3"], var.sku.name)
+    error_message = "Must be either `B1`, `B2`, `B3`, `F1`, `S1`, `S2`, or `S3`."
+  }
+  default = {
+    name     = "S1"
+    capacity = 1
+  }
 }
 
 //variables required by resource names module
@@ -82,7 +44,7 @@ variable "resource_names_map" {
   type = map(object({
     name       = string
     max_length = optional(number, 60)
-    # region     = optional(string, "eastus")
+    region     = optional(string, "eastus")
   }))
 
   default = {
