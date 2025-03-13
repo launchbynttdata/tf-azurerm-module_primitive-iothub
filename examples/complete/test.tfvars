@@ -22,6 +22,16 @@ sku = {
 #   }
 # }
 
+fallback_route = {
+  enabled = false
+}
+
+file_uploads = {}
+identity = {
+  identity_type = "SystemAssigned"
+}
+network_rule_set = null
+
 # routes = {
 #   route1 = {
 #     source         = "DeviceMessages"
@@ -63,10 +73,6 @@ cloud_to_device = {
     max_delivery_count = 15
     lock_duration      = "PT30S"
   }
-}
-
-fallback_route = {
-  enabled = false
 }
 
 consumer_groups = []

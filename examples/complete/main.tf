@@ -56,13 +56,13 @@ module "iothub" {
   location            = var.location
   resource_group_name = module.resource_group.name
   sku                 = var.sku
-  # endpoints           = var.endpoints
-  fallback_route = var.fallback_route
-  # file_uploads        = var.file_uploads
-  # identity            = var.identity
-  # network_rule_set    = var.network_rule_set
-  routes          = var.routes
-  enrichments     = var.enrichments
-  cloud_to_device = var.cloud_to_device
-  consumer_groups = var.consumer_groups
+  endpoints           = var.endpoints
+  fallback_route      = var.fallback_route
+  file_uploads        = var.file_uploads
+  identity            = var.identity
+  network_rule_set    = var.network_rule_set
+  routes              = var.routes
+  enrichments         = var.enrichments
+  cloud_to_device     = var.cloud_to_device
+  consumer_groups     = var.consumer_groups
 }
