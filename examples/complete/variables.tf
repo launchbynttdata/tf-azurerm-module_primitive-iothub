@@ -38,42 +38,42 @@ variable "sku" {
   }
 }
 
-# variable "endpoints" {
-#   description = <<EOF
-#   (Optional) A list of endpoints and their respective properties."
-#     list(object({
-#       name                       = (Required) The name of the endpoint. The name must be unique across endpoint types. The following names are reserved: events, operationsMonitoringEvents, fileNotifications and $default.
-#       type                       = (Required) The type of the endpoint. Possible values are AzureIotHub.StorageContainer, AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
-#       connection_string          = (Optional) The connection string for the endpoint. This attribute is mandatory and can only be specified when authentication_type is keyBased.
-#       authentication_type        = (Optional) The type used to authenticate against the endpoint. Possible values are keyBased and identityBased. Defaults to keyBased.
-#       identity_id                = (Optional) The ID of the User Managed Identity used to authenticate against the endpoint.
-#       endpoint_uri               = (Optional) URI of the Service Bus or Event Hubs Namespace endpoint. This attribute can only be specified and is mandatory when authentication_type is identityBased for endpoint type AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
-#       entity_path                = (Optional) Name of the Service Bus Queue/Topic or Event Hub. This attribute can only be specified and is mandatory when authentication_type is identityBased for endpoint type AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
-#       batch_frequency_in_seconds = (Optional) Time interval at which blobs are written to storage. Value should be between 60 and 720 seconds. Default value is 300 seconds. This attribute is applicable for endpoint type AzureIotHub.StorageContainer.
-#       max_chunk_size_in_bytes    = (Optional) Maximum number of bytes for each blob written to storage. Value should be between 10485760(10MB) and 524288000(500MB). Default value is 314572800(300MB). This attribute is applicable for endpoint type AzureIotHub.StorageContainer.
-#       container_name             = (Optional) The name of storage container in the storage account. This attribute is mandatory for endpoint type AzureIotHub.StorageContainer.
-#       encoding                   = (Optional) Encoding that is used to serialize messages to blobs. Supported values are Avro, AvroDeflate and JSON. Default value is Avro. This attribute is applicable for endpoint type AzureIotHub.StorageContainer. Changing this forces a new resource to be created.
-#       file_name_format           = (Optional) File name format for the blob. All parameters are mandatory but can be reordered. This attribute is applicable for endpoint type AzureIotHub.StorageContainer. Defaults to {iothub}/{partition}/{YYYY}/{MM}/{DD}/{HH}/{mm}.
-#       resource_group_name        = (Optional) The resource group in which the endpoint will be created.
-#     }))
-#   EOF
-#   type = list(object({
-#     name                       = string
-#     type                       = string
-#     connection_string          = optional(string)
-#     authentication_type        = optional(string)
-#     identity_id                = optional(string)
-#     endpoint_uri               = optional(string)
-#     entity_path                = optional(string)
-#     batch_frequency_in_seconds = optional(number)
-#     max_chunk_size_in_bytes    = optional(number)
-#     container_name             = optional(string)
-#     encoding                   = optional(string)
-#     file_name_format           = optional(string)
-#     resource_group_name        = optional(string)
-#   }))
-#   default = []
-# }
+variable "endpoints" {
+  description = <<EOF
+  (Optional) A map of endpoints and their respective properties."
+    map(object({
+      name (as key)              = (Required) The name of the endpoint. The name must be unique across endpoint types. The following names are reserved: events, operationsMonitoringEvents, fileNotifications and $default.
+      type                       = (Required) The type of the endpoint. Possible values are AzureIotHub.StorageContainer, AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
+      connection_string          = (Optional) The connection string for the endpoint. This attribute is mandatory and can only be specified when authentication_type is keyBased.
+      authentication_type        = (Optional) The type used to authenticate against the endpoint. Possible values are keyBased and identityBased. Defaults to keyBased.
+      identity_id                = (Optional) The ID of the User Managed Identity used to authenticate against the endpoint.
+      endpoint_uri               = (Optional) URI of the Service Bus or Event Hubs Namespace endpoint. This attribute can only be specified and is mandatory when authentication_type is identityBased for endpoint type AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
+      entity_path                = (Optional) Name of the Service Bus Queue/Topic or Event Hub. This attribute can only be specified and is mandatory when authentication_type is identityBased for endpoint type AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
+      batch_frequency_in_seconds = (Optional) Time interval at which blobs are written to storage. Value should be between 60 and 720 seconds. Default value is 300 seconds. This attribute is applicable for endpoint type AzureIotHub.StorageContainer.
+      max_chunk_size_in_bytes    = (Optional) Maximum number of bytes for each blob written to storage. Value should be between 10485760(10MB) and 524288000(500MB). Default value is 314572800(300MB). This attribute is applicable for endpoint type AzureIotHub.StorageContainer.
+      container_name             = (Optional) The name of storage container in the storage account. This attribute is mandatory for endpoint type AzureIotHub.StorageContainer.
+      encoding                   = (Optional) Encoding that is used to serialize messages to blobs. Supported values are Avro, AvroDeflate and JSON. Default value is Avro. This attribute is applicable for endpoint type AzureIotHub.StorageContainer. Changing this forces a new resource to be created.
+      file_name_format           = (Optional) File name format for the blob. All parameters are mandatory but can be reordered. This attribute is applicable for endpoint type AzureIotHub.StorageContainer. Defaults to {iothub}/{partition}/{YYYY}/{MM}/{DD}/{HH}/{mm}.
+      resource_group_name        = (Optional) The resource group in which the endpoint will be created.
+    }))
+  EOF
+  type = map(object({
+    # name                       = string
+    type                       = string
+    connection_string          = optional(string)
+    authentication_type        = optional(string)
+    identity_id                = optional(string)
+    endpoint_uri               = optional(string)
+    entity_path                = optional(string)
+    batch_frequency_in_seconds = optional(number)
+    max_chunk_size_in_bytes    = optional(number)
+    container_name             = optional(string)
+    encoding                   = optional(string)
+    file_name_format           = optional(string)
+    resource_group_name        = optional(string)
+  }))
+  default = {}
+}
 
 variable "fallback_route" {
   description = <<EOF
@@ -161,7 +161,7 @@ variable "network_rule_set" {
   type = object({
     default_action                     = optional(string)
     apply_to_builtin_eventhub_endpoint = optional(bool)
-    ip_rules = optional(list(object({
+    ip_rules = optional(map(object({
       ip_rule_name   = string
       ip_rule_mask   = string
       ip_rule_action = optional(string)
@@ -170,41 +170,41 @@ variable "network_rule_set" {
   default = null
 }
 
-# variable "routes" {
-#   description = <<EOF
-#   (Optional) A map of routes and their respective properties
-#     object({
-#       name (as map key) = (Required) The name of the route.
-#       source            = (Required) The source that the routing rule is to be applied to, such as DeviceMessages. Possible values include: Invalid, DeviceMessages, TwinChangeEvents, DeviceLifecycleEvents, DeviceConnectionStateEvents, DeviceJobLifecycleEvents and DigitalTwinChangeEvents.
-#       endpoint_names    = (Required) The list of endpoints to which messages that satisfy the condition are routed.
-#       enabled           = (Required) Used to specify whether a route is enabled.
-#       condition         = (Optional) The condition that is evaluated to apply the routing rule. Defaults to true. For grammar, see: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-query-language.
-#     })
-#   EOF
-#   type = map(object({
-#     source         = string
-#     endpoint_names = list(string)
-#     enabled        = bool
-#     condition      = optional(string)
-#   }))
-#   default = {}
-# }
+variable "routes" {
+  description = <<EOF
+  (Optional) A map of routes and their respective properties
+    object({
+      name (as map key) = (Required) The name of the route.
+      source            = (Required) The source that the routing rule is to be applied to, such as DeviceMessages. Possible values include: Invalid, DeviceMessages, TwinChangeEvents, DeviceLifecycleEvents, DeviceConnectionStateEvents, DeviceJobLifecycleEvents and DigitalTwinChangeEvents.
+      endpoint_names    = (Required) The list of endpoints to which messages that satisfy the condition are routed.
+      enabled           = (Required) Used to specify whether a route is enabled.
+      condition         = (Optional) The condition that is evaluated to apply the routing rule. Defaults to true. For grammar, see: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-query-language.
+    })
+  EOF
+  type = map(object({
+    source         = string
+    endpoint_names = list(string)
+    enabled        = bool
+    condition      = optional(string)
+  }))
+  default = {}
+}
 
-# variable "enrichments" {
-#   description = <<EOF
-#   (Optional) A map of enrichments and their respective properties
-#     object({
-#       key (as map key) = (Required) The key of the enrichment.
-#       value            = (Required) The value of the enrichment. Value can be any static string, the name of the IoT Hub sending the message (use $iothubname) or information from the device twin (ex: $twin.tags.latitude)
-#       endpoint_names   = (Required) The list of endpoints which will be enriched.
-#     })
-#   EOF
-#   type = map(object({
-#     value          = string
-#     endpoint_names = list(string)
-#   }))
-#   default = {}
-# }
+variable "enrichments" {
+  description = <<EOF
+  (Optional) A map of enrichments and their respective properties
+    object({
+      key (as map key) = (Required) The key of the enrichment.
+      value            = (Required) The value of the enrichment. Value can be any static string, the name of the IoT Hub sending the message (use $iothubname) or information from the device twin (ex: $twin.tags.latitude)
+      endpoint_names   = (Required) The list of endpoints which will be enriched.
+    })
+  EOF
+  type = map(object({
+    value          = string
+    endpoint_names = list(string)
+  }))
+  default = {}
+}
 
 variable "cloud_to_device" {
   description = <<EOF
@@ -232,21 +232,21 @@ variable "cloud_to_device" {
 
 variable "consumer_groups" {
   description = <<EOF
-  (Optional) A list of consumer groups and their respective properties."
-    list(object({
-      name                   = (Required) The name of this Consumer Group.
+  (Optional) A map of consumer groups and their respective properties."
+    map(object({
+      name (as key)          = (Required) The name of this Consumer Group.
       resource_group_name    = (Required) The name of the resource group that contains the IoT hub.
       iothub_name            = (Required) The name of the IoT Hub.
       eventhub_endpoint_name = (Required) The name of the Event Hub-compatible endpoint in the IoT hub.
     }))
   EOF
-  type = list(object({
-    name                   = string
+  type = map(object({
+    # name                   = string
     iothub_name            = string
     eventhub_endpoint_name = string
     resource_group_name    = string
   }))
-  default = []
+  default = {}
 }
 
 //variables required by resource names module

@@ -28,7 +28,7 @@ resource "azurerm_iothub" "instance" {
   dynamic "endpoint" {
     for_each = var.endpoints
     content {
-      name                       = endpoint.value.name
+      name                       = endpoint.key
       type                       = endpoint.value.type
       connection_string          = endpoint.value.connection_string
       authentication_type        = endpoint.value.authentication_type
@@ -83,10 +83,10 @@ resource "azurerm_iothub" "instance" {
       default_action                     = network_rule_set.value.default_action
       apply_to_builtin_eventhub_endpoint = network_rule_set.value.apply_to_builtin_eventhub_endpoint
       dynamic "ip_rule" {
-        for_each = network_rule_set.value["ip_rule"] != null ? ["ip_rule"] : []
+        for_each = network_rule_set.value["ip_rule"] != null ? network_rule_set.value["ip_rule"] : {}
         content {
           ip_mask = ip_rule.value.ip_rule_mask
-          name    = ip_rule.value.ip_rule_name
+          name    = ip_rule.key
           action  = ip_rule.value["ip_rule_action"] == null ? "Allow" : ip_rule.value["ip_rule_action"]
         }
       }
@@ -130,8 +130,8 @@ resource "azurerm_iothub" "instance" {
 }
 
 resource "azurerm_iothub_consumer_group" "consumer_groups" {
-  for_each               = toset(var.consumer_groups)
-  name                   = each.value.name
+  for_each               = var.consumer_groups
+  name                   = each.key
   resource_group_name    = var.resource_group_name
   iothub_name            = azurerm_iothub.instance.name
   eventhub_endpoint_name = each.value.eventhub_endpoint_name

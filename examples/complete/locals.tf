@@ -11,8 +11,8 @@
 // limitations under the License.
 
 locals {
-  resource_group                = module.resource_names["resource_group"].standard
-  iothub_name                   = module.resource_names["iothub"].standard
+  resource_group                = module.resource_names["resource_group"].minimal_random_suffix
+  iothub_name                   = module.resource_names["iothub"].minimal_random_suffix
   eventhubs                     = ["eventhub1"]
   public_network_access_enabled = true
 }

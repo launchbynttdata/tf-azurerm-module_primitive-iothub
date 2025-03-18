@@ -48,6 +48,7 @@ module "eventhub_namespace" {
   tags = {
     resource_name = local.resource_group
   }
+  depends_on = [module.resource_group]
 }
 
 module "eventhub" {
@@ -79,37 +80,40 @@ module "iothub" {
   location            = var.location
   resource_group_name = module.resource_group.name
   sku                 = var.sku
-  # endpoints           = var.endpoints
-  endpoints = [
-    {
+  endpoints = merge(var.endpoints, {
+    (local.eventhubs[0]) = {
       type              = "AzureIotHub.EventHub"
       connection_string = azurerm_eventhub_authorization_rule.authz_rules[local.eventhubs[0]].primary_connection_string
-      name              = local.eventhubs[0]
+      # name              = local.eventhubs[0]
     }
-  ]
+  })
   fallback_route   = var.fallback_route
   file_uploads     = var.file_uploads
   identity         = var.identity
   network_rule_set = var.network_rule_set
-  # routes           = var.routes
-  routes = {
+  routes = merge(var.routes, {
     route1 = {
       source         = "DeviceMessages"
       condition      = "true"
       endpoint_names = local.eventhubs
       enabled        = true
     }
-  }
-  # enrichments = var.enrichments
-  enrichments = {
+  })
+  enrichments = merge(var.enrichments, {
     enrichment1 = {
       key            = "tenant"
       value          = "$twin.tags.Tenant"
       endpoint_names = local.eventhubs
     }
-  }
+  })
 
   cloud_to_device = var.cloud_to_device
-  consumer_groups = var.consumer_groups
+  consumer_groups = merge(var.consumer_groups, {
+    consumer_group1 = {
+      iothub_name            = local.iothub_name
+      eventhub_endpoint_name = "events"
+      resource_group_name    = module.resource_group.name
+    }
+  })
 
 }

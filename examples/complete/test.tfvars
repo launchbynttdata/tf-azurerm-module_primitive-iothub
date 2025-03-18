@@ -38,4 +38,4 @@ cloud_to_device = {
   }
 }
 
-consumer_groups = []
+consumer_groups = {}
