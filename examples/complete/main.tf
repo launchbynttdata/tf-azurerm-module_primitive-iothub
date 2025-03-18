@@ -87,7 +87,13 @@ module "iothub" {
       # name              = local.eventhubs[0]
     }
   })
-  fallback_route   = var.fallback_route
+  fallback_route = {
+    source         = "DeviceMessages"
+    condition      = "true"
+    endpoint_names = ["events"]
+    enabled        = true
+  }
+
   file_uploads     = var.file_uploads
   identity         = var.identity
   network_rule_set = var.network_rule_set
