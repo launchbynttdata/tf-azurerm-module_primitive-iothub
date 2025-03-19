@@ -84,15 +84,16 @@ module "iothub" {
     (local.eventhubs[0]) = {
       type              = "AzureIotHub.EventHub"
       connection_string = azurerm_eventhub_authorization_rule.authz_rules[local.eventhubs[0]].primary_connection_string
-      # name              = local.eventhubs[0]
     }
   })
-  fallback_route = {
-    source         = "DeviceMessages"
-    condition      = "true"
-    endpoint_names = ["events"]
-    enabled        = true
-  }
+
+  fallback_route = try(
+    {
+      source         = "DeviceMessages"
+      condition      = "true"
+      endpoint_names = ["events"]
+      enabled        = true
+  }, var.fallback_route)
 
   file_uploads     = var.file_uploads
   identity         = var.identity
@@ -116,7 +117,6 @@ module "iothub" {
   cloud_to_device = var.cloud_to_device
   consumer_groups = merge(var.consumer_groups, {
     consumer_group1 = {
-      iothub_name            = local.iothub_name
       eventhub_endpoint_name = "events"
       resource_group_name    = module.resource_group.name
     }

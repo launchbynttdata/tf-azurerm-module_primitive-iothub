@@ -42,7 +42,7 @@ variable "endpoints" {
   description = <<EOF
   (Optional) A map of endpoints and their respective properties."
     map(object({
-      name (as key)              = (Required) The name of the endpoint. The name must be unique across endpoint types. The following names are reserved: events, operationsMonitoringEvents, fileNotifications and $default.
+      name (as map key)              = (Required) The name of the endpoint. The name must be unique across endpoint types. The following names are reserved: events, operationsMonitoringEvents, fileNotifications and $default.
       type                       = (Required) The type of the endpoint. Possible values are AzureIotHub.StorageContainer, AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
       connection_string          = (Optional) The connection string for the endpoint. This attribute is mandatory and can only be specified when authentication_type is keyBased.
       authentication_type        = (Optional) The type used to authenticate against the endpoint. Possible values are keyBased and identityBased. Defaults to keyBased.
@@ -58,7 +58,6 @@ variable "endpoints" {
     }))
   EOF
   type = map(object({
-    # name                       = string
     type                       = string
     connection_string          = optional(string)
     authentication_type        = optional(string)
@@ -151,7 +150,7 @@ variable "network_rule_set" {
     object({
       default_action                     = (Optional) Default Action for Network Rule Set. Possible values are Deny, Allow. Defaults to Deny.
       apply_to_builtin_eventhub_endpoint = (Optional) Determines if Network Rule Set is also applied to the BuiltIn EventHub EndPoint of the IotHub. Defaults to false.
-      ip_rules = optional(list(object({
+      ip_rules = optional(map(object({
         ip_rule_name   = (Required) The name of the IP rule.
         ip_rule_mask   = (Required) The IP address range in CIDR notation for the IP rule.
         ip_rule_action = (Optional) The desired action for requests captured by this rule. Possible values are Allow. Defaults to Allow.
@@ -234,15 +233,12 @@ variable "consumer_groups" {
   description = <<EOF
   (Optional) A map of consumer groups and their respective properties."
     map(object({
-      name (as key)          = (Required) The name of this Consumer Group.
+      name (as map key)      = (Required) The name of this Consumer Group.
       resource_group_name    = (Required) The name of the resource group that contains the IoT hub.
-      iothub_name            = (Required) The name of the IoT Hub.
       eventhub_endpoint_name = (Required) The name of the Event Hub-compatible endpoint in the IoT hub.
     }))
   EOF
   type = map(object({
-    # name                   = string
-    iothub_name            = string
     eventhub_endpoint_name = string
     resource_group_name    = string
   }))

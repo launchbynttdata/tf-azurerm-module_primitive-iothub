@@ -88,8 +88,8 @@ variable "sku" {
 variable "endpoints" {
   description = <<EOF
   (Optional) A map of endpoints and their respective properties."
-    list(object({
-      name (as key)              = (Required) The name of the endpoint. The name must be unique across endpoint types. The following names are reserved: events, operationsMonitoringEvents, fileNotifications and $default.
+    map(object({
+      name (as map key)              = (Required) The name of the endpoint. The name must be unique across endpoint types. The following names are reserved: events, operationsMonitoringEvents, fileNotifications and $default.
       type                       = (Required) The type of the endpoint. Possible values are AzureIotHub.StorageContainer, AzureIotHub.ServiceBusQueue, AzureIotHub.ServiceBusTopic or AzureIotHub.EventHub.
       connection_string          = (Optional) The connection string for the endpoint. This attribute is mandatory and can only be specified when authentication_type is keyBased.
       authentication_type        = (Optional) The type used to authenticate against the endpoint. Possible values are keyBased and identityBased. Defaults to keyBased.
@@ -105,7 +105,6 @@ variable "endpoints" {
     }))
   EOF
   type = map(object({
-    # name                       = string
     type                       = string
     connection_string          = optional(string)
     authentication_type        = optional(string)
@@ -281,15 +280,12 @@ variable "consumer_groups" {
   description = <<EOF
   (Optional) A map of consumer groups and their respective properties."
     map(object({
-      name (as key)          = (Required) The name of this Consumer Group.
+      name (as map key)      = (Required) The name of this Consumer Group.
       resource_group_name    = (Required) The name of the resource group that contains the IoT hub.
-      iothub_name            = (Required) The name of the IoT Hub.
       eventhub_endpoint_name = (Required) The name of the Event Hub-compatible endpoint in the IoT hub.
     }))
   EOF
   type = map(object({
-    # name                   = string
-    iothub_name            = string
     eventhub_endpoint_name = string
     resource_group_name    = string
   }))
