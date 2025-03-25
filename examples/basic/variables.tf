@@ -30,22 +30,7 @@ variable "sku" {
   }
 }
 
-variable "consumer_groups" {
-  description = <<EOF
-  (Optional) A map of consumer groups and its respective property."
-    map(object({
-      name (as map key)      = (Required) The name of this Consumer Group.
-      eventhub_endpoint_name = (Required) The name of the Event Hub-compatible endpoint in the IoT hub.
-    }))
-  EOF
-  type = map(object({
-    eventhub_endpoint_name = string
-    resource_group_name    = string
-  }))
-  default = {}
-}
-
-//variables required by resource names module
+# variables required by resource_names module
 variable "resource_names_map" {
   description = "A map of key to resource_name that will be used by tf-launch-module_library-resource_name to generate resource names"
   type = map(object({
