@@ -10,17 +10,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-output "id" {
-  description = "The IoT Hub Id."
-  value       = azurerm_iothub.instance.id
-}
-
-output "name" {
-  description = "The IoT Hub Name."
-  value       = azurerm_iothub.instance.name
-}
-
-output "default_connection_string" {
-  value     = "HostName=${azurerm_iothub.instance.hostname};SharedAccessKeyName=${azurerm_iothub.instance.shared_access_policy[0].key_name};SharedAccessKey=${azurerm_iothub.instance.shared_access_policy[0].primary_key}"
-  sensitive = true
+locals {
+  resource_group = module.resource_names["resource_group"].minimal_random_suffix
+  iothub_name    = module.resource_names["iothub"].minimal_random_suffix
+  eventhubs      = ["eventhub1"]
 }

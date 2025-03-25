@@ -12,15 +12,21 @@
 
 output "id" {
   description = "The IoT Hub Id."
-  value       = azurerm_iothub.instance.id
+  value       = module.iothub.id
 }
 
 output "name" {
   description = "The IoT Hub Name."
-  value       = azurerm_iothub.instance.name
+  value       = module.iothub.name
+}
+
+output "resource_group_name" {
+  description = "The Resource Group Name."
+  value       = module.resource_group.name
 }
 
 output "default_connection_string" {
-  value     = "HostName=${azurerm_iothub.instance.hostname};SharedAccessKeyName=${azurerm_iothub.instance.shared_access_policy[0].key_name};SharedAccessKey=${azurerm_iothub.instance.shared_access_policy[0].primary_key}"
-  sensitive = true
+  description = "The IoT Hub Connection String."
+  value       = module.iothub.default_connection_string
+  sensitive   = true
 }

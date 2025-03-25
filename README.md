@@ -158,4 +158,5 @@ No modules.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The IoT Hub Id. |
 | <a name="output_name"></a> [name](#output\_name) | The IoT Hub Name. |
+| <a name="output_default_connection_string"></a> [default\_connection\_string](#output\_default\_connection\_string) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

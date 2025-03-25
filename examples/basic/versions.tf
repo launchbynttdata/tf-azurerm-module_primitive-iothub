@@ -10,17 +10,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-output "id" {
-  description = "The IoT Hub Id."
-  value       = azurerm_iothub.instance.id
-}
+terraform {
+  required_version = "~> 1.0"
 
-output "name" {
-  description = "The IoT Hub Name."
-  value       = azurerm_iothub.instance.name
-}
-
-output "default_connection_string" {
-  value     = "HostName=${azurerm_iothub.instance.hostname};SharedAccessKeyName=${azurerm_iothub.instance.shared_access_policy[0].key_name};SharedAccessKey=${azurerm_iothub.instance.shared_access_policy[0].primary_key}"
-  sensitive = true
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.117"
+    }
+  }
 }
