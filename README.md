@@ -158,4 +158,12 @@ No modules.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The IoT Hub Id. |
 | <a name="output_name"></a> [name](#output\_name) | The IoT Hub Name. |
+| <a name="output_hostname"></a> [hostname](#output\_hostname) | The IoT Hub Shared Access Hostname. |
+| <a name="output_shared_access_policy_key_name"></a> [shared\_access\_policy\_key\_name](#output\_shared\_access\_policy\_key\_name) | The IoT Hub Shared Access Policy Key Name. |
+| <a name="output_shared_access_policy_permissions"></a> [shared\_access\_policy\_permissions](#output\_shared\_access\_policy\_permissions) | The IoT Hub Shared Access Policy Permisssions. |
+| <a name="output_shared_access_policy_primary_key"></a> [shared\_access\_policy\_primary\_key](#output\_shared\_access\_policy\_primary\_key) | The IoT Hub Shared Access Policy Primary Key. |
+| <a name="output_shared_access_primary_connection_string"></a> [shared\_access\_primary\_connection\_string](#output\_shared\_access\_primary\_connection\_string) | The IoT Hub Shared Access Primary Connection String. |
+| <a name="output_shared_access_policy_secondary_key"></a> [shared\_access\_policy\_secondary\_key](#output\_shared\_access\_policy\_secondary\_key) | The IoT Hub Shared Access Policy Secondary Key. |
+| <a name="output_shared_access_secondary_connection_string"></a> [shared\_access\_secondary\_connection\_string](#output\_shared\_access\_secondary\_connection\_string) | The IoT Hub Shared Access Secondary Connection String. |
+| <a name="output_shared_access_policy"></a> [shared\_access\_policy](#output\_shared\_access\_policy) | The IoT Hub Shared Access Policy. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
