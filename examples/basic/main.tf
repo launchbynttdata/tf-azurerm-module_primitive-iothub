@@ -44,4 +44,6 @@ module "iothub" {
   location            = var.location
   resource_group_name = module.resource_group.name
   sku                 = var.sku
+
+  depends_on = [module.resource_group]
 }
