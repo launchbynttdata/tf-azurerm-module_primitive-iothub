@@ -38,5 +38,5 @@ func TestIothubModule(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestIothub)
+	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableIothub)
 }

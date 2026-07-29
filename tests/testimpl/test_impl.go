@@ -17,7 +17,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestIothub(t *testing.T, ctx types.TestContext) {
+func TestComposableIothub(t *testing.T, ctx types.TestContext) {
 
 	subscriptionID := os.Getenv("ARM_SUBSCRIPTION_ID")
 	if len(subscriptionID) == 0 {
