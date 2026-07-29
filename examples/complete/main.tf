@@ -39,7 +39,7 @@ module "resource_names" {
 
 module "eventhub_namespace" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/eventhub_namespace/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.0.0"
 
   resource_group_name           = module.resource_group.name
   location                      = var.location
@@ -53,7 +53,7 @@ module "eventhub_namespace" {
 
 module "eventhub" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/eventhub/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.0.0"
 
   for_each            = toset(local.eventhubs)
   eventhub_name       = each.key
