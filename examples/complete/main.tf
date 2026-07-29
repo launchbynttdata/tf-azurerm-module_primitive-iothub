@@ -122,4 +122,5 @@ module "iothub" {
     }
   })
 
+  depends_on = [module.resource_group, module.eventhub, azurerm_eventhub_authorization_rule.authz_rules]
 }
