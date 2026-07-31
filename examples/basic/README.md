@@ -40,6 +40,7 @@ No resources.
 | <a name="output_hostname"></a> [hostname](#output\_hostname) | The IoT Hub Hostname. |
 | <a name="output_id"></a> [id](#output\_id) | The IoT Hub Id. |
 | <a name="output_name"></a> [name](#output\_name) | The IoT Hub Name. |
+| <a name="output_principal_id"></a> [principal\_id](#output\_principal\_id) | The principal ID of the IoT Hub system-assigned managed identity. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The Resource Group Name. |
 | <a name="output_shared_access_policy"></a> [shared\_access\_policy](#output\_shared\_access\_policy) | The IoT Hub Shared Access Policy. |
 | <a name="output_shared_access_policy_key_name"></a> [shared\_access\_policy\_key\_name](#output\_shared\_access\_policy\_key\_name) | The IoT Hub Shared Access Policy Key Name. |
@@ -48,4 +49,5 @@ No resources.
 | <a name="output_shared_access_policy_secondary_key"></a> [shared\_access\_policy\_secondary\_key](#output\_shared\_access\_policy\_secondary\_key) | The IoT Hub Shared Access Policy Secondary Key. |
 | <a name="output_shared_access_primary_connection_string"></a> [shared\_access\_primary\_connection\_string](#output\_shared\_access\_primary\_connection\_string) | The IoT Hub Shared Access Policy Primary Connection String. |
 | <a name="output_shared_access_secondary_connection_string"></a> [shared\_access\_secondary\_connection\_string](#output\_shared\_access\_secondary\_connection\_string) | The IoT Hub Shared Access Policy Secondary Connection String. |
+| <a name="output_tenant_id"></a> [tenant\_id](#output\_tenant\_id) | The tenant ID of the IoT Hub system-assigned managed identity. |
 <!-- END_TF_DOCS -->
