@@ -1,6 +1,6 @@
 # tf-azurerm-module_primitive-iothub
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -59,4 +59,6 @@
 | <a name="output_id"></a> [id](#output\_id) | The IoT Hub Id. |
 | <a name="output_name"></a> [name](#output\_name) | The IoT Hub Name. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The Resource Group Name. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| <a name="output_principal_id"></a> [principal\_id](#output\_principal\_id) | The principal ID of the IoT Hub system-assigned managed identity. |
+| <a name="output_tenant_id"></a> [tenant\_id](#output\_tenant\_id) | The tenant ID of the IoT Hub system-assigned managed identity. |
+<!-- END_TF_DOCS -->

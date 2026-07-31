@@ -60,7 +60,7 @@ variable "public_network_access_enabled" {
 variable "min_tls_version" {
   type        = string
   description = "(Optional) Specifies the minimum TLS version to support for this hub. The only valid value is 1.2. Changing this forces a new resource to be created."
-  default     = null
+  default     = "1.2"
 }
 
 variable "sku" {

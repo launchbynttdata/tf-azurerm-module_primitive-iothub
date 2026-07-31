@@ -1,6 +1,6 @@
 # tf-azurerm-module_primitive-iothub
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -52,4 +52,6 @@ No resources.
 | <a name="output_shared_access_policy_secondary_key"></a> [shared\_access\_policy\_secondary\_key](#output\_shared\_access\_policy\_secondary\_key) | The IoT Hub Shared Access Policy Secondary Key. |
 | <a name="output_shared_access_secondary_connection_string"></a> [shared\_access\_secondary\_connection\_string](#output\_shared\_access\_secondary\_connection\_string) | The IoT Hub Shared Access Policy Secondary Connection String. |
 | <a name="output_shared_access_policy"></a> [shared\_access\_policy](#output\_shared\_access\_policy) | The IoT Hub Shared Access Policy. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| <a name="output_principal_id"></a> [principal\_id](#output\_principal\_id) | The principal ID of the IoT Hub system-assigned managed identity. |
+| <a name="output_tenant_id"></a> [tenant\_id](#output\_tenant\_id) | The tenant ID of the IoT Hub system-assigned managed identity. |
+<!-- END_TF_DOCS -->
