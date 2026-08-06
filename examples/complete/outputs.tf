@@ -24,3 +24,13 @@ output "resource_group_name" {
   description = "The Resource Group Name."
   value       = module.resource_group.name
 }
+
+output "principal_id" {
+  description = "The principal ID of the IoT Hub system-assigned managed identity."
+  value       = module.iothub.principal_id
+}
+
+output "tenant_id" {
+  description = "The tenant ID of the IoT Hub system-assigned managed identity."
+  value       = module.iothub.tenant_id
+}

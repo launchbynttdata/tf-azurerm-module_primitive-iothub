@@ -26,18 +26,19 @@ const (
 )
 
 func TestIothubModule(t *testing.T) {
-	// The azurerm provider reports drift on iothub attributes after apply even when
-	// configuration is unchanged, so the second apply is not idempotent.
+	// Idempotency re-enabled: drift on min_tls_version (null vs "1.2") and
+	// identity_ids (null vs []) has been fixed in this module, so the second
+	// apply is now a no-op. Resolves #28.
 	ctx := types.CreateTestContextBuilder().
 		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
 		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
 		SetTestConfigFileName(infraTFVarFileNameDefault).
 		SetTestSpecificFlags(map[string]types.TestFlags{
 			"basic": {
-				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
 			},
 			"complete": {
-				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
 			},
 		}).
 		Build()

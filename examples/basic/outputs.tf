@@ -69,3 +69,13 @@ output "shared_access_policy" {
   value       = module.iothub.shared_access_policy
   sensitive   = true
 }
+
+output "principal_id" {
+  description = "The principal ID of the IoT Hub system-assigned managed identity."
+  value       = module.iothub.principal_id
+}
+
+output "tenant_id" {
+  description = "The tenant ID of the IoT Hub system-assigned managed identity."
+  value       = module.iothub.tenant_id
+}

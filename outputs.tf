@@ -64,3 +64,13 @@ output "shared_access_policy" {
   value       = azurerm_iothub.instance.shared_access_policy
   sensitive   = true
 }
+
+output "principal_id" {
+  description = "The principal ID of the IoT Hub system-assigned managed identity. Only populated when identity type is SystemAssigned."
+  value       = try(azurerm_iothub.instance.identity[0].principal_id, null)
+}
+
+output "tenant_id" {
+  description = "The tenant ID of the IoT Hub system-assigned managed identity. Only populated when identity type is SystemAssigned."
+  value       = try(azurerm_iothub.instance.identity[0].tenant_id, null)
+}
