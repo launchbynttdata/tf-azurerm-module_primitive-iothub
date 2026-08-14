@@ -41,5 +41,5 @@ func TestIothubModule(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestIothub)
+	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestComposableIothub)
 }

@@ -26,7 +26,9 @@ const (
 )
 
 func TestIothubModule(t *testing.T) {
-
+	// Idempotency re-enabled: drift on min_tls_version (null vs "1.2") and
+	// identity_ids (null vs []) has been fixed in this module, so the second
+	// apply is now a no-op. Resolves #28.
 	ctx := types.CreateTestContextBuilder().
 		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
 		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
@@ -41,5 +43,5 @@ func TestIothubModule(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestIothub)
+	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableIothub)
 }

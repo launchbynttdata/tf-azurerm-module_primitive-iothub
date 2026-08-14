@@ -73,7 +73,7 @@ resource "azurerm_iothub" "instance" {
     for_each = var.identity != null ? [var.identity] : []
     content {
       type         = identity.value.identity_type
-      identity_ids = identity.value["identity_ids"]
+      identity_ids = identity.value["identity_ids"] != null ? identity.value["identity_ids"] : []
     }
   }
 
@@ -83,7 +83,7 @@ resource "azurerm_iothub" "instance" {
       default_action                     = network_rule_set.value.default_action
       apply_to_builtin_eventhub_endpoint = network_rule_set.value.apply_to_builtin_eventhub_endpoint
       dynamic "ip_rule" {
-        for_each = network_rule_set.value["ip_rule"] != null ? network_rule_set.value["ip_rule"] : {}
+        for_each = network_rule_set.value["ip_rules"] != null ? network_rule_set.value["ip_rules"] : {}
         content {
           ip_mask = ip_rule.value.ip_rule_mask
           name    = ip_rule.key
