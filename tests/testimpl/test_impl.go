@@ -42,9 +42,9 @@ func TestComposableIothub(t *testing.T, ctx types.TestContext) {
 	}
 
 	t.Run("CheckIothubId", func(t *testing.T) {
-		resourceGroupName := terraform.Output(t, ctx.TerratestTerraformOptions(), "resource_group_name")
-		iothubName := terraform.Output(t, ctx.TerratestTerraformOptions(), "name")
-		iothubId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
+		resourceGroupName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "resource_group_name")
+		iothubName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "name")
+		iothubId := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
 
 		res, err := clientFactory.NewResourceClient().Get(context.Background(), resourceGroupName, iothubName, nil)
 		if err != nil {
