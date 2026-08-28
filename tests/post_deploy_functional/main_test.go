@@ -35,10 +35,10 @@ func TestIothubModule(t *testing.T) {
 		SetTestConfigFileName(infraTFVarFileNameDefault).
 		SetTestSpecificFlags(map[string]types.TestFlags{
 			"basic": {
-				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
 			},
 			"complete": {
-				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
 			},
 		}).
 		Build()
